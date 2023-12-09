@@ -9,10 +9,9 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+ 
 
-model User {
-  id                       Int     @id @default(autoincrement())
-  email                    String  @unique
-  name                     String?
-  acceptTermsAndConditions Boolean
+model Retailer {  
+  id                       String     @db.Uuid @id @default(uuid()) 
+  name                     String @unique
 }

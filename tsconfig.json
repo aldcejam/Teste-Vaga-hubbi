@@ -12,7 +12,11 @@
     "baseUrl": "./", 
     "paths": {
       "@/*": ["src/*"],
-      "@test/*": ["test/*"]
+      "@test/*": ["test/*"],
+      "@infra/*": ["src/infra/*"],
+      "@domain/*": ["src/domain/*"],
+      "@application/*": ["src/useCases/*"],
+      "@dtos/*": ["src/dtos/*"],
     },
     "incremental": true,
     "skipLibCheck": true,
