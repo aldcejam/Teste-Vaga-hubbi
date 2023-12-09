@@ -17,6 +17,7 @@
       "@domain/*": ["src/domain/*"],
       "@application/*": ["src/useCases/*"],
       "@dtos/*": ["src/dtos/*"],
+      "@errors/*": ["src/infra/http/errors/*"],
     },
     "incremental": true,
     "skipLibCheck": true,

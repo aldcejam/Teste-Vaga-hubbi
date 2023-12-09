@@ -12,6 +12,6 @@ datasource db {
  
 
 model Retailer {  
-  id                       String     @db.Uuid @id @default(uuid()) 
-  name                     String @unique
-}
+  id     String @db.Uuid @id
+  name   String @unique
+} 

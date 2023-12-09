@@ -14,8 +14,8 @@ export class RetailerController {
   async createRetailerController(@Body() body: CreateRatailerDTO) {
     const { name } = body;  
     const createRatailerUseCase = new CreateRatailerUseCase(await this.retailerRepository);
-    await createRatailerUseCase.execute({ name });
-
-    return { message: 'Retailer created successfully' };
+    const retailerCreated = await createRatailerUseCase.execute({ name });
+ 
+    return retailerCreated;
   }
 }

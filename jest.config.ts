@@ -13,6 +13,11 @@ module.exports = {
     ],
     moduleNameMapper: {
         '^@test/(.*)$': '<rootDir>/test/$1',
+        '^@domain/(.*)$': '<rootDir>/src/domain/$1',
+        '^@dtos/(.*)$': '<rootDir>/src/dtos/$1',
+        '^@infra/(.*)$': '<rootDir>/src/infra/$1',
+        '^@useCases/(.*)$': '<rootDir>/src/useCases/$1',
+        '^@errors/(.*)$': '<rootDir>/src/infra/http/errors/$1',
     },
     setupFilesAfterEnv: ['<rootDir>/test/config/singleton.ts'],
 
