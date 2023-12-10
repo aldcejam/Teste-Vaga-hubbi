@@ -6,8 +6,7 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
- 
-
+  
 model Retailer {  
   id           String    @id @db.Uuid
   name         String    @unique
