@@ -10,10 +10,13 @@ import { ProductController } from '@infra/http/ProductController';
 import { AffiliateRepository } from '@domain/ratailer/affiliate/AffiliateRepository';
 import { PrismaAffiliateRepository } from '@domain/ratailer/affiliate/PrismaAffiliateRepository';
 import { AffiateController } from '@infra/http/AffiliateController';
+import { SaleController } from '@infra/http/SaleController';
+import { SaleRepository } from '@domain/ratailer/sale/SaleRepository';
+import { PrismaSaleRepository } from '@domain/ratailer/sale/PrismaSaleRepository';
 
 @Module({
   imports: [],
-  controllers: [RetailerController,ProductController,AffiateController],
+  controllers: [RetailerController,ProductController,AffiateController,SaleController],
   providers: [PrismaService,
     {
       provide: RetailerRepository,
@@ -26,6 +29,10 @@ import { AffiateController } from '@infra/http/AffiliateController';
     {
       provide: AffiliateRepository,
       useClass: PrismaAffiliateRepository
+    },
+    {
+      provide: SaleRepository,
+      useClass: PrismaSaleRepository
     }
   ],
 })

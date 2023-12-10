@@ -1,5 +1,5 @@
 import { InMemoryRatailerRepository } from '@domain/ratailer/InMemoryRatailerRepository';
-import { InMemorySaleRepository } from "@domain/ratailer/sale/InMemorySalesRepository"
+import { InMemorySaleRepository } from "@domain/ratailer/sale/InMemorySaleRepository"
 import { CreateSaleUseCase } from "./CreateSaleUseCase"
 import { InMemoryAffiliateRepository } from '@domain/ratailer/affiliate/InMemoryAffiliateRepository';
 
