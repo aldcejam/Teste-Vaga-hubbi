@@ -2,8 +2,9 @@ import { SaleRepository } from '@domain/ratailer/sale/SaleRepository';
 import { RetailerRepository } from '@domain/ratailer/RetailerRepository';
 import { AffiliateRepository } from '@domain/ratailer/affiliate/AffiliateRepository'; 
 import { CreateSaleDTO } from '@dtos/sale/CreateSaleDTO';
-import { Body, Controller, Post } from '@nestjs/common'; 
+import { Body, Controller, Get, Post, Query } from '@nestjs/common'; 
 import { CreateSaleUseCase } from '@usecases/retailer/sale/CreateSaleUseCase';
+import { FindAffiliateByRetailerUseCase } from '@usecases/retailer/affiliate/findAffiliateByRetailer/FindAffiliateByRetailerUseCase';
 
 @Controller("vendas")
 export class SaleController {
@@ -30,5 +31,11 @@ export class SaleController {
         });
 
         return sale;
+    }
+    @Get("/")
+    async findSaleController(@Query("retailerId") retailerId: string) { 
+        const findAffiliateByRetailerUseCase = new FindAffiliateByRetailerUseCase(this.affiliateRepository);
+        const affiliate = await findAffiliateByRetailerUseCase.execute(retailerId);
+        return affiliate;
     }
 }
