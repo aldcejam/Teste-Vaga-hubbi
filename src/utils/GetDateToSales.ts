@@ -1,4 +1,4 @@
-import fs from 'fs';
+import * as fs from 'fs';
 
 export const GetDateToSales = (file: string) => {
     const filePath = file;
@@ -12,15 +12,18 @@ export const GetDateToSales = (file: string) => {
         if (line === '') {
             return;
         }
+        const regex = /0\d{9}/;
+
         const entry = {
             transactionTypes: line[0],
             transactionDate: line.substring(1, 26),
             product: line.substring(26, line.indexOf('  ')),
-            price: line.substring(line.indexOf('  '), line.indexOf('  ') + 16).trim(),
-            sale: line.substring(line.indexOf('  ') + 16).trim(),
+            price: line.match(regex)[0],
+            sale: line.substring(line.indexOf('  ') + 16),
         };
 
         results.push(entry);
-
     });
+
+    console.log(results);
 }
