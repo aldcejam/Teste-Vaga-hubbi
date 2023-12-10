@@ -1,6 +1,7 @@
 import { RetailerRepository } from "@domain/ratailer/RetailerRepository";
 import { AffiliateRepository } from "@domain/ratailer/affiliate/AffiliateRepository";
 import { CreateAffiliateDTO } from "@dtos/affiliate/CreateAffiliateDTO";
+import { HttpException } from "@nestjs/common";
 import { Affiliate } from "@prisma/client";
 
 class CreateAffiliateUseCase {
@@ -14,11 +15,11 @@ class CreateAffiliateUseCase {
         const affiliateExists = await this.affiliateRepository.findByName(name);
 
         if(affiliateExists) {
-            throw new Error("Afiliado já existe");
+            throw new HttpException("Afiliado já existe",409);
         }
 
         if(!retailerExists) {
-            throw new Error("Id de Varejista está inválido");
+            throw new HttpException("Id de Varejista está inválido",404);
         }
         
 
