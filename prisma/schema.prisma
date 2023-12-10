@@ -27,6 +27,8 @@ model Affiliate {
 
 model Product {
   id              String    @id @db.Uuid
+  name            String
+  affiliatePercent Int
   retailerId      String    @db.Uuid
   affiliateId     String?   @db.Uuid
   retailer        Retailer  @relation(fields: [retailerId], references: [id])
