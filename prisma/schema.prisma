@@ -36,12 +36,11 @@ model Product {
 
 model Sale {
   id              String    @id @db.Uuid 
-  transactionTypes Int
+  transactionType Int
   date            DateTime
   price           Float
   seller          String
-  product         String 
-  productId       String   @db.Uuid 
+  product         String  
   retailerId      String    @db.Uuid
   affiliateId     String?   @db.Uuid
   retailer        Retailer  @relation(fields: [retailerId], references: [id])

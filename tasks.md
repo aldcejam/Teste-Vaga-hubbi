@@ -18,7 +18,6 @@
 [v] Não deve poder criar com nome que já exista
 [v] Não deve poder criar sem referenciar o varejista
 
- 
 
 ## Product ##
 [v] deve poder criar produto atrelado apenas a Retailer
@@ -27,4 +26,7 @@
 [v] referencial para retailer tem que ser válido
 [v] não deve ser possivel criar com affiliatepercent menor que 1 e maior que 100
 
+## Sale ##
+
+[] Não deve poder criar se data e produto e (retailerID) ou (retailerID e affiliateID) forem os mesmos
 
