@@ -11,8 +11,7 @@ async function bootstrap() {
   await app.listen(3001);
 
   GetDateToSales('./sales.txt')
-  
-  
+   
 
 }
 bootstrap();
