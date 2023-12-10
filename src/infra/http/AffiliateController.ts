@@ -2,7 +2,7 @@ import { AffiliateRepository } from '@domain/ratailer/affiliate/AffiliateReposit
 import { RetailerRepository } from '@domain/ratailer/RetailerRepository'; 
 import { CreateAffiliateDTO } from '@dtos/affiliate/CreateAffiliateDTO'; 
 import { Body, Controller, Post } from '@nestjs/common'; 
-import { CreateAffiliateUseCase } from '@usecases/retailer/affiliate/CreateAffiliateUseCase';
+import { CreateAffiliateUseCase } from '@usecases/retailer/affiliate/createAffiliate/CreateAffiliateUseCase';
 
 @Controller("afiliado")
 export class AffiateController {
