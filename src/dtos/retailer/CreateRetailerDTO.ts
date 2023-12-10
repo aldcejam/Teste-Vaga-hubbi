@@ -1,6 +1,6 @@
 import { IsNotEmpty } from "class-validator";
 
-class CreateRatailerDTO {
+abstract class CreateRatailerDTO {
     @IsNotEmpty({
         message: 'Name is required'
     })

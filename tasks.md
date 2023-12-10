@@ -12,9 +12,12 @@
  
 
 ## Afiliado ## 
-[] Pode vender 
+[v] Pode vender 
 [] Deve listar as transações
 [] Deve totalizar as transações
+[v] Não deve poder criar com nome que já exista
+[v] Não deve poder criar sem referenciar o varejista
+
  
 
 ## Product ##
@@ -23,4 +26,5 @@
 [v] não dever poder criar produto se não ouver referencial para Retailer
 [v] referencial para retailer tem que ser válido
 [v] não deve ser possivel criar com affiliatepercent menor que 1 e maior que 100
+
 
