@@ -34,6 +34,15 @@ class PrismaRetailerRepository implements RetailerRepository {
     return retailers;
   }
 
+  async findById(id: string): Promise<Retailer | null> {
+    const retailer = await this.prisma.retailer.findFirst({
+      where: {
+        id
+      }
+    });
+    return retailer;
+  }
+
 }
 
 export { PrismaRetailerRepository };

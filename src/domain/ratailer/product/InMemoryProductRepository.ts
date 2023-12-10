@@ -1,7 +1,7 @@
 import { Product } from "@prisma/client";
 import ProductRepository from "./ProductRepository";
 import { v4 as uuidV4 } from 'uuid';
-import { CreateProductDTO } from "@dtos/product/ImportProductDTO";
+import { CreateProductDTO } from "@dtos/product/CreateProductDTO";
 
 class InMemoryProductRepository implements ProductRepository {
     private products: Product[] = [];

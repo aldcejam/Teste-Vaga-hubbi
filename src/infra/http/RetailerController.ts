@@ -5,7 +5,7 @@ import { CreateRatailerDTO } from '@dtos/retailer/CreateRetailerDTO';
 import { RetailerRepository } from '@domain/ratailer/RetailerRepository';
 import { CreateRatailerUseCase } from '@usecases/retailer/createRetailer/CreateRatailerUseCase';
 
-@Controller()
+@Controller("retailer")
 export class RetailerController { 
 
   constructor(
@@ -16,7 +16,7 @@ export class RetailerController {
   @Post("/")
   async createRetailerController(@Body() body: CreateRatailerDTO) {
     const { name } = body;  
-    const createRatailerUseCase = new CreateRatailerUseCase(await this.retailerRepository);
+    const createRatailerUseCase = new CreateRatailerUseCase(this.retailerRepository);
     const retailerCreated = await createRatailerUseCase.execute({ name });
  
     return retailerCreated;

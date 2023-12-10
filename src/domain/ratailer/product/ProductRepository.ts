@@ -1,4 +1,4 @@
-import { CreateProductDTO } from "@dtos/product/ImportProductDTO";
+import { CreateProductDTO } from "@dtos/product/CreateProductDTO";
 import { Product } from "@prisma/client";
 
 abstract class ProductRepository{  
