@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,6 +9,24 @@ datasource db {
  
 
 model Retailer {  
-  id     String @db.Uuid @id
-  name   String @unique
-} 
+  id           String    @id @db.Uuid 
+  name         String    @unique
+  products     Product[] 
+  affiliate    Affiliate?
+}
+
+model Affiliate {
+  id           String    @id @db.Uuid
+  name         String    @unique
+  products     Product[]
+  retailerId   String    @db.Uuid @unique
+  retailer     Retailer  @relation(fields: [retailerId], references: [id])
+}
+
+model Product {
+  id              String    @id @db.Uuid
+  retailerId      String    @db.Uuid
+  affiliateId     String?   @db.Uuid
+  retailer        Retailer  @relation(fields: [retailerId], references: [id])
+  affiliate       Affiliate? @relation(fields: [affiliateId], references: [id])
+}
