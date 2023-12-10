@@ -10,7 +10,7 @@ class PrismaAffiliateRepository implements AffiliateRepository {
 
     constructor(private prisma: PrismaService) {}
 
-    async create({ name,retailerId }: CreateAffiliateDTO): Promise<Affiliate> {
+    async create({ name, retailerId }: CreateAffiliateDTO): Promise<Affiliate> {
         const affiliate = await this.prisma.affiliate.create({
             data: {
                 id: uuidV4(),

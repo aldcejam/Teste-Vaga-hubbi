@@ -1,5 +1,3 @@
-// app.controller.ts
-
 import { Body, Controller, Post } from '@nestjs/common'; 
 import { CreateRatailerDTO } from '@dtos/retailer/CreateRetailerDTO';  
 import { RetailerRepository } from '@domain/ratailer/RetailerRepository';

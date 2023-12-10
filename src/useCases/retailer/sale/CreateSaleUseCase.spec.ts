@@ -25,7 +25,7 @@ describe('Create Sale', () => {
             affiliateId: affiliateCreated.id,
             retailerId: retailerCreated.id,
             date: new Date(),
-            price: 100,
+            price: "100",
             product: 'Product Test',
             seller: 'Seller Test',
             transactionType: 1
@@ -40,7 +40,7 @@ describe('Create Sale', () => {
         const sale = await createSaleUseCase.execute({
             retailerId: retailerCreated.id,
             date: new Date(),
-            price: 100,
+            price: "100",
             product: 'Product Test',
             seller: 'Seller Test',
             transactionType: 1,
@@ -62,14 +62,14 @@ describe('Create Sale', () => {
         expect(async () => {
             await createSaleUseCase.execute({
                 ...saleWithSameData,
-                price: 100,
+                price: "100",
                 product: 'Product Test',
                 seller: 'Seller Test',
                 transactionType: 1
             })
             await createSaleUseCase.execute({
                 ...saleWithSameData,
-                price: 100,
+                price: "100",
                 product: 'Product Test',
                 seller: 'Seller Test',
                 transactionType: 1
@@ -87,11 +87,28 @@ describe('Create Sale', () => {
                 retailerId: retailerCreated1.id,
                 affiliateId: affiliateCreated2.id,
                 date: new Date(),
-                price: 100,
+                price: "21",
                 product: 'Product Test',
                 seller: 'Seller Test',
                 transactionType: 1
             })
         }).rejects.toThrow("Afiliado não pertence a este varejista")
+    })
+
+    it('should be format price', async () => {
+        const retailerCreated = await inMemoryRatailerRepository.create({name: 'Retailer Test'})
+        const affiliateCreated = await inMemoryAffiliateRepository.create({name: 'Affiliate Test', retailerId: retailerCreated.id})
+
+        const sale = await createSaleUseCase.execute({
+            affiliateId: affiliateCreated.id,
+            retailerId: retailerCreated.id,
+            date: new Date(),
+            price: "003000",
+            product: 'Product Test',
+            seller: 'Seller Test',
+            transactionType: 1
+        })
+
+        expect(sale.price).toBe("30.00")
     })
 })

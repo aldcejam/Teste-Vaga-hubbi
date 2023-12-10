@@ -38,7 +38,7 @@ model Sale {
   id              String    @id @db.Uuid 
   transactionType Int
   date            DateTime
-  price           Float
+  price           String
   seller          String
   product         String  
   retailerId      String    @db.Uuid

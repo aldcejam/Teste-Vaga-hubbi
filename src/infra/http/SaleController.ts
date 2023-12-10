@@ -18,7 +18,7 @@ export class SaleController {
     async createSaleController(@Body() body: CreateSaleDTO) {
         const { date,price,product,retailerId,seller,transactionType,affiliateId } = body;
         const createSaleUseCase = new CreateSaleUseCase(this.saleRepository, this.retailerRepository,this.affiliateRepository);
-         
+
         const sale = await createSaleUseCase.execute({
             affiliateId,
             retailerId,

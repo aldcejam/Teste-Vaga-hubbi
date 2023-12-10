@@ -31,7 +31,7 @@ CREATE TABLE "Sale" (
     "id" UUID NOT NULL,
     "transactionType" INTEGER NOT NULL,
     "date" TIMESTAMP(3) NOT NULL,
-    "price" DOUBLE PRECISION NOT NULL,
+    "price" TEXT NOT NULL,
     "seller" TEXT NOT NULL,
     "product" TEXT NOT NULL,
     "retailerId" UUID NOT NULL,

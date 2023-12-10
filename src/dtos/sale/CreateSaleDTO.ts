@@ -1,4 +1,4 @@
-import { IsNotEmpty } from "class-validator"
+import { IsNotEmpty, IsNumber, IsString } from "class-validator"
 
 abstract class CreateSaleDTO {
     @IsNotEmpty({
@@ -13,7 +13,10 @@ abstract class CreateSaleDTO {
     @IsNotEmpty({
         message: 'price, Preço da venda é obrigatório'
     })
-    price: number
+    @IsString( {
+        message: 'price, Preço da venda deve ser uma string, exemplo: 9000 para 90,00'
+    })
+    price: string
     @IsNotEmpty({
         message: 'product, nome do Produto é obrigatório'
     })

@@ -19,7 +19,7 @@ class PrismaRetailerRepository implements RetailerRepository {
 
     return ratailer;
   }
-  async findByName(name: string): Promise<Retailer | null> {
+  async findByName(name: string): Promise<Retailer> {
     const retailer = await this.prisma.retailer.findFirst({
       where: {
         name
@@ -34,7 +34,7 @@ class PrismaRetailerRepository implements RetailerRepository {
     return retailers;
   }
 
-  async findById(id: string): Promise<Retailer | null> {
+  async findById(id: string): Promise<Retailer> {
     const retailer = await this.prisma.retailer.findFirst({
       where: {
         id
