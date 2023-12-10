@@ -12,7 +12,7 @@ import { PrismaRetailerRepository } from './domain/ratailer/PrismaRetailerReposi
     {
       provide: RetailerRepository,
       useClass: PrismaRetailerRepository,
-    }
+    },
   ],
 })
 export class AppModule {}

@@ -1,5 +1,5 @@
-import { RetailerRepository } from "@/domain/ratailer/RetailerRepository";
-import { CreateRatailerDTO } from "@/dtos/retailer/CreateRetailerDTO";  
+import { RetailerRepository } from "@domain/ratailer/RetailerRepository";
+import { CreateRatailerDTO } from "@dtos/retailer/CreateRetailerDTO";  
 import { ConflictException } from "@nestjs/common";
 import { Retailer } from "@prisma/client";
 
@@ -15,7 +15,7 @@ class CreateRatailerUseCase {
       throw new ConflictException("Já existe um varejista com esse nome.");
     }
 
-    const retailer = await this.retailerRepository.create(name);
+    const retailer = await this.retailerRepository.create({name});
     return retailer;
   }
 }

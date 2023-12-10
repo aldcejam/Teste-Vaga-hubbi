@@ -1,14 +1,22 @@
 import * as fs from 'fs';
 
-export const GetDateToSales = (file: string) => {
+type ISale = {
+    transactionTypes: string,
+    transactionDate: string,
+    product: string,
+    price: string,
+    sale: string,
+
+}
+
+export const GetDateToSales = (file: string): ISale[] => {
     const filePath = file;
     const data = fs.readFileSync(filePath, 'utf-8');
 
     const lines = data.split('\n');
     const results = [];
 
-    lines.forEach(line => {
-        //não vazia
+    lines.forEach(line => { 
         if (line === '') {
             return;
         }
@@ -25,5 +33,5 @@ export const GetDateToSales = (file: string) => {
         results.push(entry);
     });
 
-    console.log(results);
+    return results;
 }

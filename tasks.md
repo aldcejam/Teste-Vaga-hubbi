@@ -17,3 +17,10 @@
 [] Deve totalizar as transações
  
 
+## Product ##
+[v] deve poder criar produto atrelado apenas a Retailer
+[v] deve poder criar produto atrelado a Retailer e Affiliate
+[v] não dever poder criar produto se não ouver referencial para Retailer
+[v] referencial para retailer tem que ser válido
+[v] não deve ser possivel criar com affiliatepercent menor que 1 e maior que 100
+

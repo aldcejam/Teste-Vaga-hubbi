@@ -19,7 +19,7 @@ CREATE TABLE "Affiliate" (
 CREATE TABLE "Product" (
     "id" UUID NOT NULL,
     "name" TEXT NOT NULL,
-    "affiliatePercent" INTEGER NOT NULL,
+    "affiliatePercent" DOUBLE PRECISION NOT NULL,
     "retailerId" UUID NOT NULL,
     "affiliateId" UUID,
 

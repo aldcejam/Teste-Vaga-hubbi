@@ -10,12 +10,11 @@
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./", 
-    "paths": {
-      "@/*": ["src/*"],
+    "paths": { 
       "@test/*": ["test/*"],
       "@infra/*": ["src/infra/*"],
       "@domain/*": ["src/domain/*"],
-      "@application/*": ["src/useCases/*"],
+      "@usecases/*": ["src/useCases/*"],
       "@dtos/*": ["src/dtos/*"],
       "@errors/*": ["src/infra/http/errors/*"],
     },
