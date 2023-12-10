@@ -3,14 +3,14 @@ import CreateProductUseCase from "./CreateProductUseCase";
 import { InMemoryRatailerRepository } from "@domain/ratailer/InMemoryRatailerRepository";
 
 let inMemoryProductRepository: InMemoryProductRepository;
-let InMemoryRetailerRepository: InMemoryRatailerRepository 
+let inMemoryRetailerRepository: InMemoryRatailerRepository 
 let createProductUseCase: CreateProductUseCase;
 
 describe('Create Product', () => { 
     beforeEach(() => {
         inMemoryProductRepository = new InMemoryProductRepository();
-        InMemoryRetailerRepository = new InMemoryRatailerRepository();
-        createProductUseCase = new CreateProductUseCase(inMemoryProductRepository, InMemoryRetailerRepository);
+        inMemoryRetailerRepository = new InMemoryRatailerRepository();
+        createProductUseCase = new CreateProductUseCase(inMemoryProductRepository, inMemoryRetailerRepository);
     })
 
     let productToTest = {
@@ -21,7 +21,7 @@ describe('Create Product', () => {
     }  
 
     it('should be able to create a new product', async () => {
-        const retailerCreated =  await InMemoryRetailerRepository.create({name: productToTest.name});
+        const retailerCreated =  await inMemoryRetailerRepository.create({name: productToTest.name});
         const productCreated = await createProductUseCase.execute({...productToTest, retailerId: retailerCreated.id});
 
         const product = await inMemoryProductRepository.findByName(productToTest.name);
@@ -31,8 +31,8 @@ describe('Create Product', () => {
  
     it('should not be able to create a new product with invalid retailerId', async () => {
 
-        await InMemoryRetailerRepository.create({name: 'Retailer Test'});
-        await InMemoryRetailerRepository.create({name: 'Retailer Tes2'});
+        await inMemoryRetailerRepository.create({name: 'Retailer Test'});
+        await inMemoryRetailerRepository.create({name: 'Retailer Tes2'});
         
         expect(async () => {
             await createProductUseCase.execute({...productToTest, retailerId: '3'});
@@ -42,7 +42,7 @@ describe('Create Product', () => {
     })
  
     it('should be able to create a new product with affiliateId', async () => {
-        const retailerCreated =  await InMemoryRetailerRepository.create({name: productToTest.name});
+        const retailerCreated =  await inMemoryRetailerRepository.create({name: productToTest.name});
         const productCreated = await createProductUseCase.execute({...productToTest, retailerId: retailerCreated.id});
 
         const product = await inMemoryProductRepository.findByName(productToTest.name);
@@ -53,7 +53,7 @@ describe('Create Product', () => {
   
  
     it('should not be able to create a new product with affiliatePercent less than 1 and greater than 100', async () => {
-        const retailerCreated =  await InMemoryRetailerRepository.create({name: productToTest.name}); 
+        const retailerCreated =  await inMemoryRetailerRepository.create({name: productToTest.name}); 
         expect(async () => {
             await createProductUseCase.execute({...productToTest, affiliatePercent: 0, retailerId: retailerCreated.id});
         }
@@ -67,7 +67,7 @@ describe('Create Product', () => {
 
 
     it('should not be able to create a new product with same name from another', async () => {
-        const retailerCreated =  await InMemoryRetailerRepository.create({name: productToTest.name});
+        const retailerCreated =  await inMemoryRetailerRepository.create({name: productToTest.name});
          await createProductUseCase.execute({...productToTest, retailerId: retailerCreated.id});
         expect(async () => {
             await createProductUseCase.execute({...productToTest, retailerId: retailerCreated.id});
