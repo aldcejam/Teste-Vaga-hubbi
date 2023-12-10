@@ -25,12 +25,15 @@ class CreateSaleUseCase {
         if(!affiliateExists && affiliateId != null) {
             throw new HttpException('afiliado não existe', 404);
         }
+        if (affiliateId != null && affiliateExists.retailerId != retailerId) {
+            throw new HttpException('Afiliado não pertence a este varejista', 404);
+        }
 
         const saleAlreadyCadastred = await this.saleRepository.findByDateAndRetailerIdAndAffiliateId({affiliateId,retailerId,date});
         if(saleAlreadyCadastred.length > 0) {
             throw new HttpException('Venda já cadastrada', 409);
         }
-
+ 
         
         const saleCreated =  await this.saleRepository.create({
             affiliateId,

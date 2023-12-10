@@ -54,8 +54,8 @@ describe('Create Sale', () => {
         const affiliateCreated = await inMemoryAffiliateRepository.create({name: 'Affiliate Test', retailerId: retailerCreated.id})
 
         let saleWithSameData = {
-            affiliateId: affiliateCreated.id,
             retailerId: retailerCreated.id,
+            affiliateId: affiliateCreated.id,
             date: new Date(), 
         }
         
@@ -74,5 +74,24 @@ describe('Create Sale', () => {
                 seller: 'Seller Test',
                 transactionType: 1
         })}).rejects.toThrow("Venda já cadastrada")
+    })
+
+    it('affiliateId should be affiliated with retailerId', async () => {
+        const retailerCreated1 = await inMemoryRatailerRepository.create({name: 'Retailer Test'})
+
+        const retailerCreated2 = await inMemoryRatailerRepository.create({name: 'Retailer Test'})
+        const affiliateCreated2 = await inMemoryAffiliateRepository.create({name: 'Affiliate Test', retailerId: retailerCreated2.id})
+
+        expect(async () => {
+            await createSaleUseCase.execute({
+                retailerId: retailerCreated1.id,
+                affiliateId: affiliateCreated2.id,
+                date: new Date(),
+                price: 100,
+                product: 'Product Test',
+                seller: 'Seller Test',
+                transactionType: 1
+            })
+        }).rejects.toThrow("Afiliado não pertence a este varejista")
     })
 })
