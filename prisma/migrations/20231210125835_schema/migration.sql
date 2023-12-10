@@ -33,6 +33,7 @@ CREATE TABLE "Sale" (
     "date" TIMESTAMP(3) NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
     "seller" TEXT NOT NULL,
+    "product" TEXT NOT NULL,
     "productId" UUID NOT NULL,
     "retailerId" UUID NOT NULL,
     "affiliateId" UUID,
@@ -57,9 +58,6 @@ ALTER TABLE "Product" ADD CONSTRAINT "Product_retailerId_fkey" FOREIGN KEY ("ret
 
 -- AddForeignKey
 ALTER TABLE "Product" ADD CONSTRAINT "Product_affiliateId_fkey" FOREIGN KEY ("affiliateId") REFERENCES "Affiliate"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Sale" ADD CONSTRAINT "Sale_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Sale" ADD CONSTRAINT "Sale_retailerId_fkey" FOREIGN KEY ("retailerId") REFERENCES "Retailer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

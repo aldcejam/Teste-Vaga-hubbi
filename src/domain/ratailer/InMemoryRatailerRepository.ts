@@ -29,6 +29,11 @@ class InMemoryRatailerRepository implements RetailerRepository {
         return this.retailers;
     }
 
+    async findById(id: string): Promise<Retailer> {
+        const retailer = this.retailers.find(retailer => retailer.id === id);
+        return retailer;
+    }
+
 }
 
 export { InMemoryRatailerRepository };

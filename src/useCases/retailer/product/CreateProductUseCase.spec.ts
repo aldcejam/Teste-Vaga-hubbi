@@ -21,8 +21,8 @@ describe('Create Product', () => {
     }  
 
     it('should be able to create a new product', async () => {
-        await InMemoryRetailerRepository.create({name: productToTest.name});
-        const productCreated = await createProductUseCase.execute(productToTest);
+        const retailerCreated =  await InMemoryRetailerRepository.create({name: productToTest.name});
+        const productCreated = await createProductUseCase.execute({...productToTest, retailerId: retailerCreated.id});
 
         const product = await inMemoryProductRepository.findByName(productToTest.name);
 
@@ -42,8 +42,8 @@ describe('Create Product', () => {
     })
  
     it('should be able to create a new product with affiliateId', async () => {
-        await InMemoryRetailerRepository.create({name: productToTest.name});
-        const productCreated = await createProductUseCase.execute({...productToTest, affiliateId: '2'});
+        const retailerCreated =  await InMemoryRetailerRepository.create({name: productToTest.name});
+        const productCreated = await createProductUseCase.execute({...productToTest, retailerId: retailerCreated.id});
 
         const product = await inMemoryProductRepository.findByName(productToTest.name);
 
@@ -53,25 +53,25 @@ describe('Create Product', () => {
   
  
     it('should not be able to create a new product with affiliatePercent less than 1 and greater than 100', async () => {
-        await InMemoryRetailerRepository.create({name: productToTest.name});
+        const retailerCreated =  await InMemoryRetailerRepository.create({name: productToTest.name}); 
         expect(async () => {
-            await createProductUseCase.execute({...productToTest, affiliatePercent: 0});
+            await createProductUseCase.execute({...productToTest, affiliatePercent: 0, retailerId: retailerCreated.id});
         }
         ).rejects.toThrow("Percentual de afiliado não pode ser menor que 1");
 
         expect(async () => {
-            await createProductUseCase.execute({...productToTest, affiliatePercent: 101});
+            await createProductUseCase.execute({...productToTest, affiliatePercent: 101, retailerId: retailerCreated.id});
         }
         ).rejects.toThrow("Percentual de afiliado não pode ser maior que 100");
     })
 
 
     it('should not be able to create a new product with same name from another', async () => {
-        await InMemoryRetailerRepository.create({name: productToTest.name});
+        const retailerCreated =  await InMemoryRetailerRepository.create({name: productToTest.name});
+         await createProductUseCase.execute({...productToTest, retailerId: retailerCreated.id});
         expect(async () => {
-            await createProductUseCase.execute(productToTest);
-            await createProductUseCase.execute(productToTest); 
-            console.log(inMemoryProductRepository.listAll());
+            await createProductUseCase.execute({...productToTest, retailerId: retailerCreated.id});
+            await createProductUseCase.execute({...productToTest, retailerId: retailerCreated.id});
         }
         ).rejects.toThrow("Produto já existe");
 

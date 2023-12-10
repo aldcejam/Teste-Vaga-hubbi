@@ -1,6 +1,6 @@
 import { RetailerRepository } from "@domain/ratailer/RetailerRepository";
 import ProductRepository from "@domain/ratailer/product/ProductRepository";
-import { CreateProductDTO } from "@dtos/product/ImportProductDTO";
+import { CreateProductDTO } from "@dtos/product/CreateProductDTO";
 import { HttpException } from "@nestjs/common";
 
 class CreateProductUseCase {
@@ -16,7 +16,7 @@ class CreateProductUseCase {
         }
 
         const productAlreadyExists = await this.productRepository.findByName(name);
-        const retailerExist = await this.retailerRepository.findByName(name);
+        const retailerExist = await this.retailerRepository.findById(retailerId);
 
         if(productAlreadyExists) {
             throw new HttpException("Produto já existe", 400);
