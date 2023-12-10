@@ -9,10 +9,11 @@ datasource db {
  
 
 model Retailer {  
-  id           String    @id @db.Uuid 
+  id           String    @id @db.Uuid
   name         String    @unique
   products     Product[] 
   affiliate    Affiliate?
+  sales        Sale[]
 }
 
 model Affiliate {
@@ -21,10 +22,26 @@ model Affiliate {
   products     Product[]
   retailerId   String    @db.Uuid @unique
   retailer     Retailer  @relation(fields: [retailerId], references: [id])
+  sales        Sale[]
 }
 
 model Product {
   id              String    @id @db.Uuid
+  retailerId      String    @db.Uuid
+  affiliateId     String?   @db.Uuid
+  retailer        Retailer  @relation(fields: [retailerId], references: [id])
+  affiliate       Affiliate? @relation(fields: [affiliateId], references: [id])
+  Sales           Sale[]
+}
+
+model Sale {
+  id              String    @id @db.Uuid 
+  transactionTypes Int
+  date            DateTime
+  price           Float
+  seller          String
+  product         Product  @relation(fields: [productId], references: [id])
+  productId       String   @db.Uuid 
   retailerId      String    @db.Uuid
   affiliateId     String?   @db.Uuid
   retailer        Retailer  @relation(fields: [retailerId], references: [id])
