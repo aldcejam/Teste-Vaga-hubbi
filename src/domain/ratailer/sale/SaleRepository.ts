@@ -9,7 +9,7 @@ abstract class SaleRepository{
     abstract findbyRetailerId(id: string): Promise<Sale[]>
     abstract findbyAffiliateId(id: string): Promise<Sale[]>
     abstract findByRetailerIdAndAffiliateId({affiliateId,retailerId}: FindByRetailerIdAndAffiliateIdDTO): Promise<Sale[]>
-    abstract findByDateAndRetailerIdAndAffiliateId({affiliateId,retailerId,date}: FindByDateRetailerIdAndAffiliateIdDTO): Promise<Sale[]>
+    abstract findByDateAndRetailerIdAndAffiliateId({affiliateId,retailerId,date}: FindByDateRetailerIdAndAffiliateIdDTO): Promise<Sale>
 }
 
 export { SaleRepository }

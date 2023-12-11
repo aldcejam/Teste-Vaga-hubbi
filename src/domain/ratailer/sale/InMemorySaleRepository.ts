@@ -41,8 +41,8 @@ class InMemorySaleRepository implements SaleRepository {
     async findByRetailerIdAndAffiliateId({affiliateId,retailerId}: FindByRetailerIdAndAffiliateIdDTO): Promise<Sale[]> {
         return this.sales.filter(sale => sale.affiliateId === affiliateId && sale.retailerId === retailerId)  
     }
-    async findByDateAndRetailerIdAndAffiliateId({affiliateId,retailerId,date}: FindByDateRetailerIdAndAffiliateIdDTO): Promise<Sale[]> {
-        return this.sales.filter(sale => sale.affiliateId === affiliateId && sale.retailerId === retailerId && sale.date === date)  
+    async findByDateAndRetailerIdAndAffiliateId({affiliateId,retailerId,date}: FindByDateRetailerIdAndAffiliateIdDTO): Promise<Sale> {
+        return this.sales.filter(sale => sale.affiliateId === affiliateId && sale.retailerId === retailerId && sale.date === date)[0]
     }
 
 }

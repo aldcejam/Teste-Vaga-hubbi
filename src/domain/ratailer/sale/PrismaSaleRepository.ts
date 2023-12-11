@@ -5,6 +5,7 @@ import { v4 as uuidV4 } from 'uuid';
 import { Sale } from "@prisma/client";
 import { FindByRetailerIdAndAffiliateIdDTO } from "@dtos/sale/FindByRetailerIdAndAffiliateIdDTO";
 import { FindByDateRetailerIdAndAffiliateIdDTO } from "@dtos/sale/FindByDateRetailerIdAndAffiliateIdDTO";
+import { FormatStructureCurrency } from "src/utils/FormatStructureCurrency";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
@@ -12,10 +13,12 @@ class PrismaSaleRepository implements SaleRepository {
     constructor(private prisma: PrismaService){}
 
     async create({date,price,product,retailerId,seller, transactionType,affiliateId}: CreateSaleDTO): Promise<any> {
+        const princeFormatted = FormatStructureCurrency(price);
+        
         return await this.prisma.sale.create({data:{
             id: uuidV4(), 
             date,
-            price,
+            price: princeFormatted,
             product,
             retailerId,
             seller,
@@ -33,8 +36,8 @@ class PrismaSaleRepository implements SaleRepository {
     async findByRetailerId(retailerId: string): Promise<Sale[]> {
         return await this.prisma.sale.findMany({where:{retailerId}})
     }
-    async findByDateAndRetailerIdAndAffiliateId({ affiliateId, retailerId, date }: FindByDateRetailerIdAndAffiliateIdDTO): Promise<Sale[]> {
-        return await this.prisma.sale.findMany({where:{retailerId,affiliateId,date}})
+    async findByDateAndRetailerIdAndAffiliateId({ affiliateId, retailerId, date }: FindByDateRetailerIdAndAffiliateIdDTO): Promise<Sale> {
+        return await this.prisma.sale.findFirst({where:{retailerId,affiliateId,date}})
     }
     async findbyAffiliateId(id: string): Promise<Sale[]> {
         return await this.prisma.sale.findMany({where:{affiliateId:id}})

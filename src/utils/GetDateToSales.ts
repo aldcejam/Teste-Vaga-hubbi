@@ -1,33 +1,30 @@
 import * as fs from 'fs';
 
 type ISale = {
-    transactionTypes: string,
-    transactionDate: string,
+    transactionType: number,
+    transactionDate: Date,
     product: string,
     price: string,
-    sale: string,
-
+    saller: string, 
 }
 
-export const GetDateToSales = (file: string): ISale[] => {
-    const filePath = file;
-    const data = fs.readFileSync(filePath, 'utf-8');
+export const GetDateToSales = (Items: string[]): ISale[] => { 
 
-    const lines = data.split('\n');
     const results = [];
 
-    lines.forEach(line => { 
+    Items.forEach(line => { 
         if (line === '') {
             return;
         }
-        const regex = /0\d{9}/;
+        const regexPrice = /0\d{9}/;
+        const regexSaller =  /  \d{10}(.*)/;
 
         const entry = {
-            transactionTypes: line[0],
-            transactionDate: line.substring(1, 26),
+            transactionType: Number(line[0]),
+            transactionDate: new Date(line.substring(1, 26)),
             product: line.substring(26, line.indexOf('  ')),
-            price: line.match(regex)[0],
-            sale: line.substring(line.indexOf('  ') + 16),
+            price: line.match(regexPrice)[0],
+            saller: line.match(regexSaller)[1],
         };
 
         results.push(entry);

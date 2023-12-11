@@ -80,12 +80,12 @@ describe('Create Sale', () => {
         const retailerCreated1 = await inMemoryRatailerRepository.create({name: 'Retailer Test'})
 
         const retailerCreated2 = await inMemoryRatailerRepository.create({name: 'Retailer Test'})
-        const affiliateCreated2 = await inMemoryAffiliateRepository.create({name: 'Affiliate Test', retailerId: retailerCreated2.id})
+        const affiliateCreated = await inMemoryAffiliateRepository.create({name: 'Affiliate Test', retailerId: retailerCreated2.id})
 
         expect(async () => {
             await createSaleUseCase.execute({
                 retailerId: retailerCreated1.id,
-                affiliateId: affiliateCreated2.id,
+                affiliateId: affiliateCreated.id,
                 date: new Date(),
                 price: "21",
                 product: 'Product Test',
@@ -94,21 +94,5 @@ describe('Create Sale', () => {
             })
         }).rejects.toThrow("Afiliado não pertence a este varejista")
     })
-
-    it('should be format price', async () => {
-        const retailerCreated = await inMemoryRatailerRepository.create({name: 'Retailer Test'})
-        const affiliateCreated = await inMemoryAffiliateRepository.create({name: 'Affiliate Test', retailerId: retailerCreated.id})
-
-        const sale = await createSaleUseCase.execute({
-            affiliateId: affiliateCreated.id,
-            retailerId: retailerCreated.id,
-            date: new Date(),
-            price: "003000",
-            product: 'Product Test',
-            seller: 'Seller Test',
-            transactionType: 1
-        })
-
-        expect(sale.price).toBe("30.00")
-    })
+ 
 })
