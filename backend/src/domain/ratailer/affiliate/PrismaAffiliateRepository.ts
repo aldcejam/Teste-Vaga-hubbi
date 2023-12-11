@@ -53,7 +53,8 @@ class PrismaAffiliateRepository implements AffiliateRepository {
             }
         });
         return affiliates;
-    }
+    } 
+    
 }
 
 export { PrismaAffiliateRepository }

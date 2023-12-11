@@ -34,6 +34,9 @@ class InMemoryAffiliateRepository implements AffiliateRepository{
         const affiliates = this.affiliates.filter(affiliate => affiliate.retailerId === retailerId);
         return affiliates;
     }
+    async listAll(): Promise<{ id: string; name: string; retailerId: string; }[]> {
+        return this.affiliates;
+    }
     
 }
 

@@ -4,7 +4,7 @@ import { RetailerRepository } from "@domain/ratailer/RetailerRepository";
 import { SaleRepository } from "@domain/ratailer/sale/SaleRepository";
 import { ImportSalesDTO } from "@dtos/sale/ImportSalesDTO";
 import { GetDateToSales } from "src/utils/GetDateToSales";
-import { HttpException } from '@nestjs/common';
+import { HttpException } from '@nestjs/common'; 
 
 class ImportSalesUseCase {
     constructor(
@@ -23,9 +23,7 @@ class ImportSalesUseCase {
         }
         catch(err){
             throw new HttpException('Varejista não existe', 404);
-        }
- 
-        //verificar se não é string vazia 
+        } 
         
         if(affiliateId) {
             try{
@@ -42,10 +40,12 @@ class ImportSalesUseCase {
         }
 
         const promises = sales.map(async sale => {
-            const saleAlreadyCadastred = await this.saleRepository.findByDateAndRetailerIdAndAffiliateId({
+
+            const saleAlreadyCadastred = await this.saleRepository.findByDateAndRetailerIdAndAffiliateIdByTransactionType({
                 affiliateId,
                 retailerId,
-                date: sale.transactionDate
+                date: sale.transactionDate,
+                transactionType: sale.transactionType
             });
 
             if (!saleAlreadyCadastred) {
@@ -65,6 +65,7 @@ class ImportSalesUseCase {
                     date: sale.transactionDate,
                     price: sale.price,
                     seller: sale.saller,
+                    transactionType: sale.transactionType,
                 });
             }
         });

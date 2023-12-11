@@ -3,6 +3,8 @@ import { AffiliateRepository } from "@domain/ratailer/affiliate/AffiliateReposit
 import { SaleRepository } from "@domain/ratailer/sale/SaleRepository";
 import { TotalAmountDTO } from "@dtos/sale/TotalAmountDTO";
 import { HttpException } from "@nestjs/common";
+import { Sale } from "@prisma/client";
+import { TransactionType } from "src/dataDefault/transactionType";
 
 class TotalAmountUseCase {
     constructor(
@@ -48,8 +50,11 @@ class TotalAmountUseCase {
         }
     }
 
-    private calculateTotalSales(salesList: any[]) {
-        return salesList.reduce((acc, sale) => acc + Number(sale.price), 0);
+    private calculateTotalSales(salesList: Sale[]) {
+        return salesList.reduce((acc, sale) => {
+            const saleValue = Number(sale.price);
+            return TransactionType(sale.transactionType).sign === '-' ? acc - saleValue : acc + saleValue;
+        }, 0);
     }
 }
 

@@ -24,7 +24,7 @@ class CreateSaleUseCase {
             }
         }
         
-        const saleAlreadyCadastred = await this.saleRepository.findByDateAndRetailerIdAndAffiliateId({affiliateId,retailerId,date});
+        const saleAlreadyCadastred = await this.saleRepository.findByDateAndRetailerIdAndAffiliateIdByTransactionType({affiliateId,retailerId,date,transactionType});
         if(saleAlreadyCadastred) {
             throw new HttpException('Venda já cadastrada', 409);
         }

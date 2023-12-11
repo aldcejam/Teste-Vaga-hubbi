@@ -1,10 +1,9 @@
 import { CreateSaleDTO } from "@dtos/sale/CreateSaleDTO";
-import { SaleRepository } from "./SaleRepository";
+import { FindByDateRetailerIdAndAffiliateIdRequest, SaleRepository } from "./SaleRepository";
 import { PrismaService } from "@infra/database/prisma.service";
 import { v4 as uuidV4 } from 'uuid';
 import { Sale } from "@prisma/client";
 import { FindByRetailerIdAndAffiliateIdDTO } from "@dtos/sale/FindByRetailerIdAndAffiliateIdDTO";
-import { FindByDateRetailerIdAndAffiliateIdDTO } from "@dtos/sale/FindByDateRetailerIdAndAffiliateIdDTO";
 import { FormatStructureCurrency } from "src/utils/FormatStructureCurrency";
 import { Injectable } from "@nestjs/common";
 
@@ -35,15 +34,15 @@ class PrismaSaleRepository implements SaleRepository {
     }
     async findByRetailerId(retailerId: string): Promise<Sale[]> {
         return await this.prisma.sale.findMany({where:{retailerId}})
-    }
-    async findByDateAndRetailerIdAndAffiliateId({ affiliateId, retailerId, date }: FindByDateRetailerIdAndAffiliateIdDTO): Promise<Sale> {
-        return await this.prisma.sale.findFirst({where:{retailerId,affiliateId,date}})
-    }
+    } 
     async findbyAffiliateId(id: string): Promise<Sale[]> {
         return await this.prisma.sale.findMany({where:{affiliateId:id}})
     }
     async findbyRetailerId(id: string): Promise<Sale[]> {
         return await this.prisma.sale.findMany({where:{retailerId:id}})
+    }
+    async findByDateAndRetailerIdAndAffiliateIdByTransactionType({ affiliateId, retailerId, date,transactionType }: FindByDateRetailerIdAndAffiliateIdRequest): Promise<Sale> {
+        return await this.prisma.sale.findFirst({where:{retailerId,affiliateId,date,transactionType}})
     }
 
 }

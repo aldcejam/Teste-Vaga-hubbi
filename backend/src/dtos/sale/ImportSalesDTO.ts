@@ -5,8 +5,7 @@ abstract class ImportSalesDTO{
     @IsNotEmpty({
         message: 'retailerId, Varejista é obrigatório'
     })
-    abstract retailerId: string;
-    @IsOptional()  
+    abstract retailerId: string; 
     @IsNotEmpty({
         message: 'affiliateId não pode ser uma string vazia'
     })
