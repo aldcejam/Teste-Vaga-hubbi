@@ -6,8 +6,7 @@ import { AffiliateProps, DataContextProvider, RetailerProps } from "@/context/da
 interface PageClientProps {
     retailers: RetailerProps[];
     affiliates: AffiliateProps[];
-}
-
+} 
 
 export const PageClient = ({ retailers, affiliates }: PageClientProps) => {  
 
