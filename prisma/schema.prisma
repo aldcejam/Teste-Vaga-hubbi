@@ -11,7 +11,7 @@ model Retailer {
   id           String    @id @db.Uuid
   name         String    @unique
   products     Product[] 
-  affiliate    Affiliate?
+  affiliates   Affiliate[]    
   sales        Sale[]
 }
 
@@ -19,7 +19,7 @@ model Affiliate {
   id           String    @id @db.Uuid
   name         String    @unique
   products     Product[]
-  retailerId   String    @db.Uuid @unique
+  retailerId   String    @db.Uuid
   retailer     Retailer  @relation(fields: [retailerId], references: [id])
   sales        Sale[]
 }

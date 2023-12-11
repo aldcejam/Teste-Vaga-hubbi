@@ -6,10 +6,9 @@ import { Body, Controller, Get, Post, Query, UploadedFile, UseInterceptors } fro
 import { CreateSaleUseCase } from '@usecases/retailer/sale/createSale/CreateSaleUseCase';
 import { FindAffiliateByRetailerUseCase } from '@usecases/retailer/affiliate/findAffiliateByRetailer/FindAffiliateByRetailerUseCase';
 import { FindAffiliateByRetailerDTO } from '@dtos/affiliate/FindAffiliateByRetailerDTO';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { GetDateToSales } from 'src/utils/GetDateToSales';
+import { FileInterceptor } from '@nestjs/platform-express'; 
 import { ImportSalesDTO } from '@dtos/sale/ImportSalesDTO';
-import ImportSalesUseCase from '@usecases/retailer/sale/importSales/ImportSalesUseCase';
+import { ImportSalesUseCase } from '@usecases/retailer/sale/importSales/ImportSalesUseCase';
 
 @Controller("vendas")
 export class SaleController {
@@ -42,8 +41,7 @@ export class SaleController {
         const findAffiliateByRetailerUseCase = new FindAffiliateByRetailerUseCase(this.affiliateRepository);
         const affiliate = await findAffiliateByRetailerUseCase.execute(retailerId);
         return affiliate;
-    }
-
+    } 
 
     @Post('/import')
     @UseInterceptors(FileInterceptor('sales'))
@@ -55,9 +53,9 @@ export class SaleController {
         const removeEmptyLines = fileContent.filter((line) => line !== ''); 
         
         const importSalesUseCase = new ImportSalesUseCase(this.saleRepository, this.retailerRepository, this.affiliateRepository);
-        const salesimpoted = await importSalesUseCase.execute({ file: removeEmptyLines, retailerId, affiliateId });
+        const salesimported = await importSalesUseCase.execute({ file: removeEmptyLines, retailerId, affiliateId });
 
-        return salesimpoted;
+        return salesimported;
 
     } 
 }

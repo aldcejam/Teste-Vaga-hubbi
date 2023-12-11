@@ -7,25 +7,25 @@ import { Affiliate } from "@prisma/client";
 class CreateAffiliateUseCase {
     constructor(
         private affiliateRepository: AffiliateRepository,
-        private retailerRepository: RetailerRepository    
-        ) {}
-    
-    async execute({name,retailerId}: CreateAffiliateDTO): Promise<Affiliate> {
-        const retailerExists = await this.retailerRepository.findById(retailerId);
-        const affiliateExists = await this.affiliateRepository.findByName(name);
+        private retailerRepository: RetailerRepository
+    ) { }
 
-        if(affiliateExists) {
-            throw new HttpException("Afiliado já existe",409);
+    async execute({ name, retailerId }: CreateAffiliateDTO): Promise<Affiliate> {
+
+        const affiliateAlreadyExists = await this.affiliateRepository.findByName(name);
+        if (affiliateAlreadyExists) {
+            throw new HttpException('Afiliado já existe', 404);
         }
-
-        if(!retailerExists) {
-            throw new HttpException("Id de Varejista está inválido",404);
+        try {
+            await this.retailerRepository.findById(retailerId);
+        }
+        catch (err) {
+            throw new HttpException('Varejista não existe', 404);
         }
         
+        const affiliate = await this.affiliateRepository.create({ name, retailerId });
+        return affiliate;
 
-        const affiliateCreated = await this.affiliateRepository.create({name,retailerId});
-
-        return affiliateCreated;
     }
 }
 

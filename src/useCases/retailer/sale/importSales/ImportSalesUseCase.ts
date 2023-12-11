@@ -1,9 +1,8 @@
+import { Sale } from "@prisma/client";
 import { AffiliateRepository } from '@domain/ratailer/affiliate/AffiliateRepository';
-import { RetailerRepository } from "@domain/ratailer/RetailerRepository";
-import ProductRepository from "@domain/ratailer/product/ProductRepository";
+import { RetailerRepository } from "@domain/ratailer/RetailerRepository"; 
 import { SaleRepository } from "@domain/ratailer/sale/SaleRepository";
 import { ImportSalesDTO } from "@dtos/sale/ImportSalesDTO";
-import { Sale } from "@prisma/client";
 import { GetDateToSales } from "src/utils/GetDateToSales";
 import { HttpException } from '@nestjs/common';
 
@@ -11,23 +10,35 @@ class ImportSalesUseCase {
     constructor(
         private saleRepository: SaleRepository,
         private retailerRepository: RetailerRepository,
-        private affiliateRepository: AffiliateRepository,
-    ) {} 
+        private affiliateRepository: AffiliateRepository
+    ) {}
     
     async execute({file, retailerId, affiliateId}: ImportSalesDTO): Promise<{ saleCadastrated: Sale[], saleAlreadyCadastrated: Sale[] }> { 
         const sales = GetDateToSales(file);        
         const saleCadastrated: Sale[] = [];
         const saleAlreadyCadastrated = [];
 
-        const retailerExists = await this.retailerRepository.findById(retailerId);
-        if(!retailerExists) {
-            throw new HttpException('varejista não existe', 404);
+        try{
+            await this.retailerRepository.findById(retailerId);
         }
+        catch(err){
+            throw new HttpException('Varejista não existe', 404);
+        }
+ 
+        //verificar se não é string vazia 
+        
         if(affiliateId) {
-            const affiliateExists = await this.affiliateRepository.findById(affiliateId); 
-            if (affiliateId != null && affiliateExists.retailerId != retailerId) {
-                throw new HttpException('Afiliado não pertence a este varejista', 404);
+            try{
+                const affiliateExists = await this.affiliateRepository.findById(affiliateId);
+
+                if (affiliateExists.retailerId != retailerId) {
+                    throw new HttpException('Afiliado não pertence a este varejista', 404);
+                }
             }
+            catch(err){
+                throw new HttpException('Afiliado não existe', 404);
+            }
+ 
         }
 
         const promises = sales.map(async sale => {
@@ -64,4 +75,4 @@ class ImportSalesUseCase {
     }
 }
 
-export default ImportSalesUseCase;
+export { ImportSalesUseCase };

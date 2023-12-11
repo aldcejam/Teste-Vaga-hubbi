@@ -46,9 +46,6 @@ CREATE UNIQUE INDEX "Retailer_name_key" ON "Retailer"("name");
 -- CreateIndex
 CREATE UNIQUE INDEX "Affiliate_name_key" ON "Affiliate"("name");
 
--- CreateIndex
-CREATE UNIQUE INDEX "Affiliate_retailerId_key" ON "Affiliate"("retailerId");
-
 -- AddForeignKey
 ALTER TABLE "Affiliate" ADD CONSTRAINT "Affiliate_retailerId_fkey" FOREIGN KEY ("retailerId") REFERENCES "Retailer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 

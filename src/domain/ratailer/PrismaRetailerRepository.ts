@@ -9,9 +9,9 @@ import { CreateRatailerDTO } from "@dtos/retailer/CreateRetailerDTO";
 class PrismaRetailerRepository implements RetailerRepository {
   constructor(private prisma: PrismaService) { }
 
-  async create({name}:CreateRatailerDTO): Promise<Retailer> {
+  async create({ name }: CreateRatailerDTO): Promise<Retailer> {
     const ratailer = await this.prisma.retailer.create({
-      data: { 
+      data: {
         id: uuidV4(),
         name,
       },
@@ -41,7 +41,7 @@ class PrismaRetailerRepository implements RetailerRepository {
       }
     });
     return retailer;
-  }
+  } 
 
 }
 

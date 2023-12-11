@@ -12,7 +12,7 @@ class InMemoryAffiliateRepository implements AffiliateRepository{
 
     async create({ name,retailerId }: CreateAffiliateDTO): Promise<Affiliate> {
         const affiliate = {
-            id: uuidV4,
+            id: uuidV4(),
             name,
             retailerId
         };
