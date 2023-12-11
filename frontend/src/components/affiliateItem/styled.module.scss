@@ -1,0 +1,12 @@
+.AffiliateItem{
+    @apply py-6 px-10 rounded-2xl;
+    @apply bg-background text-white font-semibold;
+    @apply bg-opacity-40;
+    @apply flex items-center;
+
+    &[data-active="true"]{
+        @apply bg-blue-950;
+        
+    }
+     
+}
