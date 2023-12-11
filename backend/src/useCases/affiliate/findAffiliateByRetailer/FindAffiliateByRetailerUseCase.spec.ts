@@ -1,4 +1,4 @@
-import { InMemoryAffiliateRepository } from '@domain/ratailer/affiliate/InMemoryAffiliateRepository';
+import { InMemoryAffiliateRepository } from '@domain/affiliate/InMemoryAffiliateRepository';
  
 import { FindAffiliateByRetailerUseCase } from "./FindAffiliateByRetailerUseCase";
 

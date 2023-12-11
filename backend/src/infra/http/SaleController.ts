@@ -1,16 +1,18 @@
-import { SaleRepository } from '@domain/ratailer/sale/SaleRepository';
+import { SaleRepository } from '@domain/sale/SaleRepository';
 import { RetailerRepository } from '@domain/ratailer/RetailerRepository';
-import { AffiliateRepository } from '@domain/ratailer/affiliate/AffiliateRepository';
+import { AffiliateRepository } from '@domain/affiliate/AffiliateRepository';
 import { CreateSaleDTO } from '@dtos/sale/CreateSaleDTO';
 import { Body, Controller, Get, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
-import { CreateSaleUseCase } from '@usecases/retailer/sale/createSale/CreateSaleUseCase';
-import { FindAffiliateByRetailerUseCase } from '@usecases/retailer/affiliate/findAffiliateByRetailer/FindAffiliateByRetailerUseCase';
+import { CreateSaleUseCase } from '@usecases/sale/createSale/CreateSaleUseCase';
+import { FindAffiliateByRetailerUseCase } from '@usecases/affiliate/findAffiliateByRetailer/FindAffiliateByRetailerUseCase';
 import { FindAffiliateByRetailerDTO } from '@dtos/affiliate/FindAffiliateByRetailerDTO';
 import { FileInterceptor } from '@nestjs/platform-express'; 
 import { ImportSalesDTO } from '@dtos/sale/ImportSalesDTO';
-import { ImportSalesUseCase } from '@usecases/retailer/sale/importSales/ImportSalesUseCase';
-import { TotalAmountUseCase } from '@usecases/retailer/sale/totalAmount/TotalAmount';
+import { ImportSalesUseCase } from '@usecases/sale/importSales/ImportSalesUseCase';
+import { TotalAmountUseCase } from '@usecases/sale/totalAmount/TotalAmount';
 import { TotalAmountDTO } from '@dtos/sale/TotalAmountDTO';
+import { FindSalesUseCase } from '@usecases/sale/findSales/FindSalesUseCase';
+import { FindSalesDTO } from '@dtos/sale/FindSalesDTO';
 
 @Controller("vendas")
 export class SaleController {
@@ -39,9 +41,13 @@ export class SaleController {
         return sale;
     }
     @Get("/")
-    async findSaleController(@Query() { retailerId }: FindAffiliateByRetailerDTO) {
-        const findAffiliateByRetailerUseCase = new FindAffiliateByRetailerUseCase(this.affiliateRepository);
-        const affiliate = await findAffiliateByRetailerUseCase.execute(retailerId);
+    async findSaleController(@Query() { retailerId,affiliateId }: FindSalesDTO) {
+        const findSalesUseCase = new FindSalesUseCase(this.saleRepository);
+        const affiliate = await findSalesUseCase.execute({
+            retailerId,
+            affiliateId
+        });
+
         return affiliate;
     } 
 

@@ -1,9 +1,11 @@
-import { AffiliateRepository } from '@domain/ratailer/affiliate/AffiliateRepository';
+import { AffiliateRepository } from '@domain/affiliate/AffiliateRepository';
 import { RetailerRepository } from '@domain/ratailer/RetailerRepository'; 
 import { CreateAffiliateDTO } from '@dtos/affiliate/CreateAffiliateDTO'; 
+import { FindAffiliateByRetailerDTO } from '@dtos/affiliate/FindAffiliateByRetailerDTO';
 import { Body, Controller, Get, Post, Query } from '@nestjs/common'; 
-import { CreateAffiliateUseCase } from '@usecases/retailer/affiliate/createAffiliate/CreateAffiliateUseCase';
-import { ListAllAffiliates } from '@usecases/retailer/affiliate/listAllAffiliates/ListAllAffiliates';
+import { CreateAffiliateUseCase } from '@usecases/affiliate/createAffiliate/CreateAffiliateUseCase';
+import { FindAffiliateByRetailerUseCase } from '@usecases/affiliate/findAffiliateByRetailer/FindAffiliateByRetailerUseCase';
+import { ListAllAffiliates } from '@usecases/affiliate/listAllAffiliates/ListAllAffiliates';
 
 @Controller("afiliado")
 export class AffiateController {
@@ -25,11 +27,11 @@ export class AffiateController {
     }
 
     @Get("/")
-    async findRetailerController(@Query() body: CreateAffiliateDTO) {
-        const { name, retailerId } = body;
-        const createAffiliateUseCase = new CreateAffiliateUseCase(this.afiliateRepository, this.retailerRepository);
-        const retailerCreated = await createAffiliateUseCase.execute({
-            name, retailerId
+    async findAffiliateController(@Query() body: FindAffiliateByRetailerDTO) {
+        const { retailerId } = body;
+        const listAffiliate = new FindAffiliateByRetailerUseCase(this.afiliateRepository);
+        const retailerCreated = await listAffiliate.execute({
+             retailerId
         });
 
         return retailerCreated;

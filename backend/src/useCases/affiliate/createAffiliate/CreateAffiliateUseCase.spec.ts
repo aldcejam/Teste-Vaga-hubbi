@@ -1,4 +1,4 @@
-import { InMemoryAffiliateRepository } from "@domain/ratailer/affiliate/InMemoryAffiliateRepository"
+import { InMemoryAffiliateRepository } from "@domain/affiliate/InMemoryAffiliateRepository"
 import { CreateAffiliateUseCase } from "./CreateAffiliateUseCase"
 import { InMemoryRatailerRepository } from "@domain/ratailer/InMemoryRatailerRepository"
 import { HttpException } from "@nestjs/common"

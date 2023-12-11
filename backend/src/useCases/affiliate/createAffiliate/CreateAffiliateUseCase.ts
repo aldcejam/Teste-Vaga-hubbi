@@ -1,5 +1,5 @@
 import { RetailerRepository } from "@domain/ratailer/RetailerRepository";
-import { AffiliateRepository } from "@domain/ratailer/affiliate/AffiliateRepository";
+import { AffiliateRepository } from "@domain/affiliate/AffiliateRepository";
 import { CreateAffiliateDTO } from "@dtos/affiliate/CreateAffiliateDTO";
 import { HttpException } from "@nestjs/common";
 import { Affiliate } from "@prisma/client";

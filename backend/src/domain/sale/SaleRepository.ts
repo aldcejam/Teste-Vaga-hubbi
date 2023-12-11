@@ -1,5 +1,4 @@
-import { CreateSaleDTO } from "@dtos/sale/CreateSaleDTO";
-import { FindByRetailerIdAndAffiliateIdDTO } from "@dtos/sale/FindByRetailerIdAndAffiliateIdDTO";
+import { CreateSaleDTO } from "@dtos/sale/CreateSaleDTO"; 
 import { Sale } from "@prisma/client";
 
 export abstract class FindByDateRetailerIdAndAffiliateIdRequest  {
@@ -14,7 +13,7 @@ abstract class SaleRepository{
     abstract findById(id: string): Promise<Sale>
     abstract findbyRetailerId(id: string): Promise<Sale[]>
     abstract findbyAffiliateId(id: string): Promise<Sale[]>
-    abstract findByRetailerIdAndAffiliateId({affiliateId,retailerId}: FindByRetailerIdAndAffiliateIdDTO): Promise<Sale[]>
+    abstract findByRetailerIdAndAffiliateId({affiliateId,retailerId}: {affiliateId:string,retailerId:string}): Promise<Sale[]>
     abstract findByDateAndRetailerIdAndAffiliateIdByTransactionType({affiliateId,retailerId,date}: FindByDateRetailerIdAndAffiliateIdRequest): Promise<Sale>
 }
 

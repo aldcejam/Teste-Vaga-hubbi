@@ -1,6 +1,6 @@
 import { RetailerRepository } from "@domain/ratailer/RetailerRepository";
-import { AffiliateRepository } from "@domain/ratailer/affiliate/AffiliateRepository";
-import { SaleRepository } from "@domain/ratailer/sale/SaleRepository";
+import { AffiliateRepository } from "@domain/affiliate/AffiliateRepository";
+import { SaleRepository } from "@domain/sale/SaleRepository";
 import { CreateSaleDTO } from "@dtos/sale/CreateSaleDTO";
 import { HttpException } from "@nestjs/common"; 
 

@@ -1,7 +1,7 @@
 import { Sale } from "@prisma/client";
-import { AffiliateRepository } from '@domain/ratailer/affiliate/AffiliateRepository';
+import { AffiliateRepository } from '@domain/affiliate/AffiliateRepository';
 import { RetailerRepository } from "@domain/ratailer/RetailerRepository"; 
-import { SaleRepository } from "@domain/ratailer/sale/SaleRepository";
+import { SaleRepository } from "@domain/sale/SaleRepository";
 import { ImportSalesDTO } from "@dtos/sale/ImportSalesDTO";
 import { GetDateToSales } from "src/utils/GetDateToSales";
 import { HttpException } from '@nestjs/common'; 

@@ -3,7 +3,6 @@ import { FindByDateRetailerIdAndAffiliateIdRequest, SaleRepository } from "./Sal
 import { PrismaService } from "@infra/database/prisma.service";
 import { v4 as uuidV4 } from 'uuid';
 import { Sale } from "@prisma/client";
-import { FindByRetailerIdAndAffiliateIdDTO } from "@dtos/sale/FindByRetailerIdAndAffiliateIdDTO";
 import { FormatStructureCurrency } from "src/utils/FormatStructureCurrency";
 import { Injectable } from "@nestjs/common";
 
@@ -29,7 +28,7 @@ class PrismaSaleRepository implements SaleRepository {
     async findById(id: string): Promise<Sale> {
         return await this.prisma.sale.findUnique({where:{id}})
     }
-    async findByRetailerIdAndAffiliateId({ affiliateId, retailerId }: FindByRetailerIdAndAffiliateIdDTO): Promise<Sale[]> {
+    async findByRetailerIdAndAffiliateId({ affiliateId, retailerId }: { affiliateId:string, retailerId: string }): Promise<Sale[]> {
         return await this.prisma.sale.findMany({where:{retailerId,affiliateId}})
     }
     async findByRetailerId(retailerId: string): Promise<Sale[]> {
