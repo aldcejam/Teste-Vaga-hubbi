@@ -5,26 +5,52 @@ import { TotalAmountDTO } from "@dtos/sale/TotalAmountDTO";
 import { HttpException } from "@nestjs/common";
 
 class TotalAmountUseCase {
-    constructor( 
+    constructor(
         private saleRepository: SaleRepository,
         private retailerRepository: RetailerRepository,
         private affiliateRepository: AffiliateRepository,
     ) {}
-     
-    async execute({retailerId, affiliateId}:TotalAmountDTO) {
-         
-        try{
-            await this.retailerRepository.findById(retailerId);
-        }
-        catch(err){
-            throw new HttpException('Varejista não existe', 404);
-        }
-    
-        
- 
 
+    async execute({ retailerId, affiliateId }: TotalAmountDTO) {
+        this.validateRetailerExists(retailerId);
+
+        let sales = 0;
+
+        if (affiliateId) {
+            this.validateAffiliate(affiliateId, retailerId);
+            const salesList = await this.saleRepository.findByRetailerIdAndAffiliateId({ retailerId, affiliateId });
+            sales = this.calculateTotalSales(salesList);
+        } else {
+            const salesList = await this.saleRepository.findbyRetailerId(retailerId);
+            sales = this.calculateTotalSales(salesList);
+        }
+
+        return sales;
     }
 
+    private async validateRetailerExists(retailerId: string) {
+        try {
+            await this.retailerRepository.findById(retailerId);
+        } catch (err) {
+            throw new HttpException('Varejista não existe', 404);
+        }
+    }
+
+    private async validateAffiliate(affiliateId: string, retailerId: string) {
+        try {
+            const affiliateExists = await this.affiliateRepository.findById(affiliateId);
+
+            if (affiliateExists.retailerId !== retailerId) {
+                throw new HttpException('Afiliado não pertence a este varejista', 404);
+            }
+        } catch (err) {
+            throw new HttpException('Afiliado não existe', 404);
+        }
+    }
+
+    private calculateTotalSales(salesList: any[]) {
+        return salesList.reduce((acc, sale) => acc + Number(sale.price), 0);
+    }
 }
 
-export { TotalAmountUseCase }
+export { TotalAmountUseCase };

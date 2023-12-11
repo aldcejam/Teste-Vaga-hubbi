@@ -9,6 +9,8 @@ import { FindAffiliateByRetailerDTO } from '@dtos/affiliate/FindAffiliateByRetai
 import { FileInterceptor } from '@nestjs/platform-express'; 
 import { ImportSalesDTO } from '@dtos/sale/ImportSalesDTO';
 import { ImportSalesUseCase } from '@usecases/retailer/sale/importSales/ImportSalesUseCase';
+import { TotalAmountUseCase } from '@usecases/retailer/sale/totalAmount/TotalAmount';
+import { TotalAmountDTO } from '@dtos/sale/TotalAmountDTO';
 
 @Controller("vendas")
 export class SaleController {
@@ -58,4 +60,11 @@ export class SaleController {
         return salesimported;
 
     } 
+
+    @Get('/totalAmount')
+    async totalAmountController(@Query() { retailerId, affiliateId }: TotalAmountDTO) {
+        const totalAmountUseCase = new TotalAmountUseCase(this.saleRepository, this.retailerRepository, this.affiliateRepository);
+        const totalAmount = await totalAmountUseCase.execute({ retailerId, affiliateId });
+        return totalAmount;
+    }
 }

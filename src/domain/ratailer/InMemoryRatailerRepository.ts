@@ -34,6 +34,7 @@ class InMemoryRatailerRepository implements RetailerRepository {
         return retailer;
     } 
 
+
 }
 
 export { InMemoryRatailerRepository };
