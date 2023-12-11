@@ -22,11 +22,10 @@ export class RetailerController {
   }
 
   @Get("/")
-  async findRetailerController(@Body() body: FindRetailerDTO) {
-    const { id } = body;  
-    const createRatailerUseCase = new FindAllRetailerUseCase(this.retailerRepository);
-    const retailerCreated = await createRatailerUseCase.execute({ id });
+  async findRetailerController(@Body() body) { 
+    const findRetailerUseCase = new FindAllRetailerUseCase(this.retailerRepository);
+    const retailers = await findRetailerUseCase.execute();
  
-    return retailerCreated;
+    return retailers;
   }
 }

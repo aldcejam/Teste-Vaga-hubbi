@@ -8,20 +8,15 @@ class FindAllRetailerUseCase {
         private retailerRepository: RetailerRepository
     ) {}
     
-    async execute({id}:FindRetailerDTO): Promise<Retailer[] | Retailer> {
+    async execute(): Promise<Retailer[] | Retailer> {
 
-        if(id) {
-            try{
-                const retailer = await this.retailerRepository.findById(id);
-                return retailer;
-            }
-            catch(err){
-                throw new HttpException("varejista não existe", 404);
-            }
+        try{
+            const retailers = await this.retailerRepository.listAll();
+            return retailers;
         }
-
-        const retailers = await this.retailerRepository.listAll();
-        return retailers;
+        catch(err) {
+            throw new HttpException("não há varejista", 400);
+        }
     }
 }
 
