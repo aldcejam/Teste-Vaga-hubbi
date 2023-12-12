@@ -54,14 +54,14 @@ export class SaleController {
     @Post('/import')
     @UseInterceptors(FileInterceptor('sales'))
     async uploadFile(
-        @UploadedFile() file: Express.Multer.File,
+        @UploadedFile() sales : Express.Multer.File,
         @Query() { retailerId, affiliateId }: ImportSalesDTO
     ) { 
-        const fileContent = file.buffer.toString('utf8').split('\n'); 
-        const removeEmptyLines = fileContent.filter((line) => line !== ''); 
+        console.log(sales);
+    
         
         const importSalesUseCase = new ImportSalesUseCase(this.saleRepository, this.retailerRepository, this.affiliateRepository);
-        const salesimported = await importSalesUseCase.execute({ file: removeEmptyLines, retailerId, affiliateId });
+        const salesimported = await importSalesUseCase.execute({ sales, retailerId, affiliateId });
 
         return salesimported;
 

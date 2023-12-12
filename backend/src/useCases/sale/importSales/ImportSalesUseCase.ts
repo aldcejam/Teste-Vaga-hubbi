@@ -13,8 +13,12 @@ class ImportSalesUseCase {
         private affiliateRepository: AffiliateRepository
     ) {}
     
-    async execute({file, retailerId, affiliateId}: ImportSalesDTO): Promise<{ saleCadastrated: Sale[], saleAlreadyCadastrated: Sale[] }> { 
-        const sales = GetDateToSales(file);        
+    async execute({sales, retailerId, affiliateId}: ImportSalesDTO): Promise<{ saleCadastrated: Sale[], saleAlreadyCadastrated: Sale[] }> { 
+        
+        const fileContent = sales.buffer.toString('utf8').split('\n'); 
+        const removeEmptyLines = fileContent.filter((line) => line !== ''); 
+        
+        const salesContent = GetDateToSales(removeEmptyLines);        
         const saleCadastrated: Sale[] = [];
         const saleAlreadyCadastrated = [];
 
@@ -39,7 +43,7 @@ class ImportSalesUseCase {
  
         }
 
-        const promises = sales.map(async sale => {
+        const promises = salesContent.map(async sale => {
 
             const saleAlreadyCadastred = await this.saleRepository.findByDateAndRetailerIdAndAffiliateIdByTransactionType({
                 affiliateId,

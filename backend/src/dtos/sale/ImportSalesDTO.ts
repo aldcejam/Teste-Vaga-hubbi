@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsOptional } from "class-validator";
+import { IsEmpty, IsNotEmpty, IsOptional } from "class-validator";
 
-abstract class ImportSalesDTO{
-    abstract file: string[];
+abstract class ImportSalesDTO{ 
+    abstract sales: Express.Multer.File;
     @IsNotEmpty({
         message: 'retailerId, Varejista é obrigatório'
     })
