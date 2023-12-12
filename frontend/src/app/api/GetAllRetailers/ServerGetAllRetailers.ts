@@ -1,6 +1,6 @@
 const apiUrl = 'http://localhost:5000/retailer';
 
-async function GetAllRetailers() {
+async function ServerGetAllRetailers() {
   const res = await fetch(apiUrl, {
     method: 'GET',
     headers: {
@@ -13,4 +13,4 @@ async function GetAllRetailers() {
   return data;
 }
 
-export { GetAllRetailers };
+export { ServerGetAllRetailers };

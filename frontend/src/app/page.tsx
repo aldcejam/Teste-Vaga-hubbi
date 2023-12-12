@@ -1,18 +1,12 @@
-import { RetailerMenu } from "@/components/retailerMenu/retailerMenu"; 
-import { GetAllRetailers } from "@/app/api/GetAllRetailers";  
-import { AffiliatesGroups } from "@/components/affiliatesGroups/affiliatesGroup";
-import { PageClient } from "./pageClient";  
-import { ListAffiliates } from "./api/ListAffiliates";
-import { AffiliateProps, RetailerProps } from "@/context/dataContext";
+import { ServerGetAllRetailers } from "@/app/api/GetAllRetailers/ServerGetAllRetailers";  
+import { PageClient } from "./pageClient"; 
+import { RetailerProps } from "@/context/apiDataContext";
 
 export default async function App() {
-  const retailers = await GetAllRetailers() as RetailerProps[]  
-  const affiliates = await ListAffiliates() as AffiliateProps[]
-  
-  
+  const retailers = await ServerGetAllRetailers() as RetailerProps[]   
+   
   return (
-    <PageClient
-      affiliates={affiliates}
+    <PageClient 
       retailers={retailers}
     />
   );

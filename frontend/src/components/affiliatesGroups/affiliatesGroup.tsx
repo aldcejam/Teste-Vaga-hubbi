@@ -1,30 +1,48 @@
-import { useDataStateContext } from "@/context/dataContext";
+"use client"
+import { AffiliateProps, useApiDataStateContext } from "@/context/apiDataContext";
 import { AffiliateItem } from "../affiliateItem/AffiliateItem"
 import styled from "./styled.module.scss"
+import { use, useEffect, useState } from "react"; 
 
 export const AffiliatesGroups = () => {
 
-    const {retailer,affiliates } = useDataStateContext();
-
-    const affiliatesFiltered = affiliates.filter(affiliate => affiliate.retailerId === retailer.state?.id)
+    const { retailerSelected } = useApiDataStateContext();
+    const [affiliates, setAffiliates] = useState<AffiliateProps[]>([]);
     
-    if(!retailer.state) return (
+    useEffect(() => { 
+            async function GetAffiliateByRetailer() {
+                const res = await fetch(`/api/afiliado/?retailerId=${retailerSelected.state}`)
+                if (!res.ok) {
+                    const message = `An error has occured: ${res.status}`;
+                    console.log(message);
+                }
+            
+                const data = await res.json(); 
+                setAffiliates(data);
+            }
+            GetAffiliateByRetailer();
+             
+    }, [retailerSelected.state])
+    
+    console.log(affiliates);
+    
+    if(!retailerSelected.state) return (
         <div className={styled.affiliatesGroups}>
-           <h2>Nenhum Afiliado disponível</h2>
+           <h2>Selecione um Varejista</h2>
         </div>
     )
-    if(affiliatesFiltered.length) return (
+   /*  if(retailerSelected.state && affiliates) return (
         <div className={styled.affiliatesGroups}>
             {
-                affiliatesFiltered.map(affiliate => (
+                affiliates.map(affiliate => (
                     <AffiliateItem 
                         key={affiliate.id}
                         name={affiliate.name}
-                        isActive={affiliate.id === retailer.state?.id}
+                        isActive={affiliate.id === retailerSelected.state?.id}
                     />
                 ))
             }
         </div>
-    )
+    ) */
     
 }

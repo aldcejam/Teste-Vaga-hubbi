@@ -2,7 +2,7 @@
 import styled from "./styled.module.scss";
 import { useState } from "react";
 import { motion, Variants } from "framer-motion";
-import { useDataStateContext } from "@/context/dataContext";
+import { useApiDataStateContext } from "@/context/apiDataContext";
 
 const itemVariants: Variants = {
     open: {
@@ -18,7 +18,7 @@ const itemVariants: Variants = {
 export const RetailerMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const { retailers, retailer } = useDataStateContext();
+    const { retailers, retailerSelected } = useApiDataStateContext();
 
     return (
         <motion.nav
@@ -72,8 +72,8 @@ export const RetailerMenu = () => {
                     <motion.li 
                         variants={itemVariants} 
                         key={item.id}  
-                        data-active={retailer.state?.id == item.id}
-                        onClick={() => {retailer.setState(item), setIsOpen(false)}}
+                        data-active={retailerSelected.state == item.id}
+                        onClick={() => {retailerSelected.setState(item.id), setIsOpen(false)}}
                         >
                         {item.name}
                     </motion.li>
