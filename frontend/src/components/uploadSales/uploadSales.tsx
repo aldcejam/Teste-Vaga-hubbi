@@ -57,7 +57,7 @@ export const UploadSales = () => {
         } else if (isDragReject) {
             return <p>arquivo não permitido</p>;
         } else {
-            return <p>Arraste a imagem ou clique para enviar</p>;
+            return <p>Arraste o arquivo ou clique para enviar</p>;
         }
     };
 
