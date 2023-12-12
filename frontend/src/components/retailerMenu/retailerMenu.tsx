@@ -35,7 +35,7 @@ export const RetailerMenu = () => {
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setIsOpen(!isOpen)}
             >
-                Varejistas - {retailerSelected.state? retailerSelected.state.name : "Selecione"}
+                {retailerSelected.state? `Varejista: ${retailerSelected.state.name}`: "Selecionar varejista"}  
                 <motion.div
                     variants={{
                         open: { rotate: 180 },

@@ -47,7 +47,7 @@
     }
 
     &[data-active='true'] {
-        @apply text-font; 
+        @apply text-black font-bold; 
         &::before {
             transform: translate(5%, 20%);
             width: 110%;

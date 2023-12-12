@@ -5,6 +5,8 @@ import { Thumb } from "./thumb";
 import { useApiDataStateContext } from "@/context/apiDataContext";
 import { SendSaleFile } from "@/app/api/SendSaleFile";
 import { DropzoneConfigured } from "./DropzoneConfigured";
+import { toast } from "react-toastify";
+import { ShowSalesResult } from "./showSalesResult/showSalesResult";
 
 export interface UploadedFile {
     file: {
@@ -22,13 +24,11 @@ export interface UploadedFile {
 
 export const UploadSales = () => {
     const [files, setFiles] = useState<UploadedFile[]>([]);
-
     const { affiliateSelected, retailerSelected } = useApiDataStateContext()
     const [sendFileResulted, setSendFileResulted] = useState();
-
-    console.log(sendFileResulted);
-
     const [send, setSend] = useState(false);
+    const [showResultModal, setShowResultModal] = useState(false);
+  
 
     useEffect(() => {
         if (!send) return; 
@@ -40,6 +40,11 @@ export const UploadSales = () => {
         });
         setSend(false);
     }, [send]);
+
+    useEffect(() => {
+        if (!sendFileResulted) return;
+        toast.success("Arquivo"); 
+    }, [sendFileResulted])
      
 
     const { getInputProps, getRootProps, isDragAccept, isDragReject } = DropzoneConfigured({
@@ -85,6 +90,14 @@ export const UploadSales = () => {
                         Enviar
                     </button> : null
             }
+            <ShowSalesResult
+                modal={
+                    {
+                        state: showResultModal,
+                        setState: setShowResultModal
+                    }
+                }
+            />
         </div>
     );
 }

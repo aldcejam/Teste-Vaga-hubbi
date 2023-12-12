@@ -5,6 +5,9 @@ import { ApiDataContextProvider, RetailerProps } from "@/context/apiDataContext"
 import { UploadSales } from "@/components/uploadSales/uploadSales";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { CreateRetailer } from "@/components/createRetailer/createRetailer";
+import { CreateAffiliate } from "@/components/createAffiliate/createAffiliate";
+import { ImportSales } from "@/components/ImportSales/ImportSales";
 
 interface PageClientProps {
     retailers: RetailerProps[];
@@ -27,11 +30,12 @@ export const PageClient = ({ retailers }: PageClientProps) => {
                 draggable
                 pauseOnHover
                 theme="colored"
-            />
+                />
             <div className="relative mt-10 w-[90vw] max-x-[800px] inset-x-0 m-auto">
-                <RetailerMenu />
-                <AffiliatesGroups />
-                <UploadSales />
+                <CreateRetailer/>
+                <CreateAffiliate/>
+                <hr className="my-10"/>
+                 <ImportSales/>       
             </div>
         </ApiDataContextProvider>
     );

@@ -1,6 +1,5 @@
 "use client"
 import { AffiliateProps } from "@/context/apiDataContext";
-
  
 
 interface GetAffiliateByRetailerProps { 

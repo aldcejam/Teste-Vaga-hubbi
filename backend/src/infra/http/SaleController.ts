@@ -56,10 +56,7 @@ export class SaleController {
     async uploadFile(
         @UploadedFile() sales : Express.Multer.File,
         @Query() { retailerId, affiliateId }: ImportSalesDTO
-    ) { 
-        console.log(sales);
-    
-        
+    ) {   
         const importSalesUseCase = new ImportSalesUseCase(this.saleRepository, this.retailerRepository, this.affiliateRepository);
         const salesimported = await importSalesUseCase.execute({ sales, retailerId, affiliateId });
 
