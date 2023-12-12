@@ -1,19 +1,21 @@
 "use client"
-import styled from "./styled.module.scss"
-import { motion } from "framer-motion"
+import styled from "./styled.module.scss" 
 
-interface AffiliateItemProps {
+interface AffiliateItemProps extends React.HTMLAttributes<HTMLButtonElement> {
     name: string;
     isActive: boolean;
 }
 
-export const AffiliateItem = ({name, isActive}:AffiliateItemProps) => {
-     
-    return ( 
-        <motion.button 
-        data-active={isActive}
-        className={styled.AffiliateItem} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.8 }} >
+export const AffiliateItem = ({ name, isActive, ...props }: AffiliateItemProps) => {
+
+    return (
+        <button
+            {...props}
+            data-active={isActive}
+            className={styled.AffiliateItem}
+            role="button"
+        >
             {name}
-        </motion.button> 
+        </button>
     );
 }

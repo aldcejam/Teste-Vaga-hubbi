@@ -1,12 +1,14 @@
 "use client"
 import { AffiliateProps } from "@/context/apiDataContext";
-import { useEffect } from "react";
+
+ 
 
 interface GetAffiliateByRetailerProps { 
     retailerID: string;
+    setState: React.Dispatch<React.SetStateAction<AffiliateProps[]>>;
 }
 
-async function GetAffiliateByRetailer({ retailerID }: GetAffiliateByRetailerProps) {
+async function GetAffiliateByRetailer({retailerID,setState}:GetAffiliateByRetailerProps) {
     const res = await fetch(`/api/afiliado/?retailerId=${retailerID}`)
     if (!res.ok) {
         const message = `An error has occured: ${res.status}`;
@@ -14,7 +16,7 @@ async function GetAffiliateByRetailer({ retailerID }: GetAffiliateByRetailerProp
     }
 
     const data = await res.json(); 
-    return data as AffiliateProps[];
+    setState(data);
 }
 
 

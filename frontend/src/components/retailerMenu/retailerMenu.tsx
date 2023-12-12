@@ -2,7 +2,7 @@
 import styled from "./styled.module.scss";
 import { useState } from "react";
 import { motion, Variants } from "framer-motion";
-import { useApiDataStateContext } from "@/context/apiDataContext";
+import { RetailerProps, useApiDataStateContext } from "@/context/apiDataContext";
 
 const itemVariants: Variants = {
     open: {
@@ -18,7 +18,12 @@ const itemVariants: Variants = {
 export const RetailerMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const { retailers, retailerSelected } = useApiDataStateContext();
+    const { retailers, retailerSelected, affiliateSelected } = useApiDataStateContext();
+    const SelectRetailer = (retailer: RetailerProps) => {
+        retailerSelected.setState({id: retailer.id, name: retailer.name});
+        affiliateSelected.setState(undefined);
+        setIsOpen(false);
+    }
 
     return (
         <motion.nav
@@ -30,7 +35,7 @@ export const RetailerMenu = () => {
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setIsOpen(!isOpen)}
             >
-                Varejistas
+                Varejistas - {retailerSelected.state? retailerSelected.state.name : "Selecione"}
                 <motion.div
                     variants={{
                         open: { rotate: 180 },
@@ -72,8 +77,8 @@ export const RetailerMenu = () => {
                     <motion.li 
                         variants={itemVariants} 
                         key={item.id}  
-                        data-active={retailerSelected.state == item.id}
-                        onClick={() => {retailerSelected.setState(item.id), setIsOpen(false)}}
+                        data-active={retailerSelected.state?.id == item.id}
+                        onClick={() => SelectRetailer(item)}
                         >
                         {item.name}
                     </motion.li>

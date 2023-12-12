@@ -2,47 +2,41 @@
 import { AffiliateProps, useApiDataStateContext } from "@/context/apiDataContext";
 import { AffiliateItem } from "../affiliateItem/AffiliateItem"
 import styled from "./styled.module.scss"
-import { use, useEffect, useState } from "react"; 
+import { useEffect, useState } from "react"; 
+import { GetAffiliateByRetailer } from "@/app/api/GetAffiliateByRetailer";
 
 export const AffiliatesGroups = () => {
 
-    const { retailerSelected } = useApiDataStateContext();
+    const { retailerSelected, affiliateSelected } = useApiDataStateContext();
     const [affiliates, setAffiliates] = useState<AffiliateProps[]>([]);
     
-    useEffect(() => { 
-            async function GetAffiliateByRetailer() {
-                const res = await fetch(`/api/afiliado/?retailerId=${retailerSelected.state}`)
-                if (!res.ok) {
-                    const message = `An error has occured: ${res.status}`;
-                    console.log(message);
-                }
-            
-                const data = await res.json(); 
-                setAffiliates(data);
-            }
-            GetAffiliateByRetailer();
-             
-    }, [retailerSelected.state])
-    
-    console.log(affiliates);
+    useEffect(() => {
+        if(retailerSelected.state){  
+            GetAffiliateByRetailer({
+                setState: setAffiliates,
+                retailerID: retailerSelected.state.id
+            });
+        }   
+    }, [retailerSelected.state]) 
     
     if(!retailerSelected.state) return (
         <div className={styled.affiliatesGroups}>
            <h2>Selecione um Varejista</h2>
         </div>
     )
-   /*  if(retailerSelected.state && affiliates) return (
+    if(retailerSelected.state && affiliates) return (
         <div className={styled.affiliatesGroups}>
             {
                 affiliates.map(affiliate => (
                     <AffiliateItem 
                         key={affiliate.id}
                         name={affiliate.name}
-                        isActive={affiliate.id === retailerSelected.state?.id}
+                        isActive={affiliate.id === affiliateSelected.state?.id}
+                        onClick={()=> affiliateSelected.setState({id:affiliate.id, name:affiliate.name, retailerId:affiliate.retailerId})}
                     />
                 ))
             }
         </div>
-    ) */
+    )
     
 }

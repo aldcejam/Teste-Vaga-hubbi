@@ -1,0 +1,61 @@
+.input-upload {
+    @apply relative;
+    @apply flex flex-col items-center w-full;
+    @apply py-10;
+    @apply rounded-md border-2 border-solid border-black;
+    outline: none;
+    @apply transition-[border] duration-300 ease-in-out cursor-pointer;
+    background: theme("colors.black" / 20%);
+
+    &:hover {
+        @apply border-pink-100;
+        background-color: theme("colors.black" / 45%);
+    }
+
+    .dropzone {
+        @apply w-full h-full; 
+    }
+
+    .label {
+        @apply flex flex-wrap items-center gap-x-[10px] justify-center; 
+        @apply text-font;
+
+        p {
+            @apply m-0 text-center ;
+
+        } 
+        .icon {
+            @apply text-5xl -rotate-90;
+
+        }
+    }
+
+    &[data-dragaccept=true] {
+        @apply border-green-400;
+
+        p,
+        .icon {
+            @apply text-green-300;
+        }
+    }
+
+    &[data-dragreject=true] {
+        @apply border-red-500;
+
+        p,
+        .icon {
+            @apply text-red-500;
+        }
+    }
+
+    .button-send{
+        @apply flex flex-row justify-center gap-2 min-w-[160px];
+        @apply text-font font-bold;
+        @apply bg-green-500 hover:bg-green-600 active:scale-95;
+        @apply mt-10 py-2 px-4 rounded-md;
+        @apply transition-all duration-300 ease-in-out;
+ 
+    }
+
+
+}

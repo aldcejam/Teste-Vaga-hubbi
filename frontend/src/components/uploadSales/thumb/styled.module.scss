@@ -1,0 +1,26 @@
+.thumb { 
+    @apply flex flex-row flex-wrap mt-5;
+
+    .data {
+        @apply w-full flex items-start justify-center gap-3;
+        @apply text-font;
+
+        &__thumb {
+            @apply relative flex w-[70px] h-[70px];
+            @apply overflow-hidden rounded-md border border-solid border-[#eaeaea];  
+        }
+
+        &__informations {
+            @apply flex flex-col items-start gap-2;
+
+
+            .informations__clear {
+                @apply min-w-[160px];
+                @apply bg-red-600 hover:bg-red-700 active:scale-95;
+                @apply border-[3px] border-solid rounded-md border-red-900; 
+                @apply py-2 px-1;
+                @apply text-center text-font transition-all duration-300;   
+            } 
+        }
+    }
+}

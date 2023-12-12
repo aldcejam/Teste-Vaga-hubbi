@@ -14,7 +14,7 @@ class ImportSalesUseCase {
     ) {}
     
     async execute({sales, retailerId, affiliateId}: ImportSalesDTO): Promise<{ saleCadastrated: Sale[], saleAlreadyCadastrated: Sale[] }> { 
-        
+         
         const fileContent = sales.buffer.toString('utf8').split('\n'); 
         const removeEmptyLines = fileContent.filter((line) => line !== ''); 
         

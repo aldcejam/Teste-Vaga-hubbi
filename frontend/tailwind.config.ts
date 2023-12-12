@@ -9,8 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       colors:{
-        "contrast": "var(--contrast)",
-        "background": "var(--background)",
+        "contrast": "var(--contrast)", 
+        "color60": "var(--color60)",
+        "color30": "var(--color30)",
+        "color10": "var(--color10)",
+        "font": "var(--font)",
+        "contrastToColor10": "var(--contrastToColor10)",
       }
     },
   },

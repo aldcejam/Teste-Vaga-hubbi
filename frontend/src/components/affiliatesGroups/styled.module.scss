@@ -1,7 +1,7 @@
 .affiliatesGroups{
-    @apply absolute w-full h-10;
-    @apply mt-16 px-5 py-10 pb-16;
-    @apply bg-contrast rounded-[10px] overflow-hidden;
+    @apply relative w-full h-10;
+    @apply px-5 py-10 pb-16;
+    @apply bg-color60 rounded-[10px] overflow-hidden;
     @apply flex gap-10;
     
 }

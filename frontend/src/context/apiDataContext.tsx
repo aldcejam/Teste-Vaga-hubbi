@@ -19,8 +19,12 @@ interface ChildrenProps {
 interface ApiDataContextProps { 
     retailers: RetailerProps[]; 
     retailerSelected: {
-        state: string | undefined;
-        setState: React.Dispatch<React.SetStateAction<string | undefined>>;
+        state: RetailerProps | undefined;
+        setState: React.Dispatch<React.SetStateAction<RetailerProps | undefined>>;
+    };
+    affiliateSelected: {
+        state: AffiliateProps | undefined;
+        setState: React.Dispatch<React.SetStateAction<AffiliateProps | undefined>>;
     };
 }
 
@@ -30,15 +34,20 @@ export const ApiDataContextProvider: React.FC<ChildrenProps> = ({
     children, 
     retailers,
 }) => { 
-    const [retailer, setRetailer] = useState<string | undefined>();
+    const [retailer, setRetailer] = useState<RetailerProps | undefined>(undefined);
+    const [affiliateSelected, setAffiliateSelected] = useState<AffiliateProps | undefined>(undefined);
 
     return (
         <ApiDataContext.Provider
             value={{ 
-                retailers, 
+                retailers , 
                 retailerSelected: {
                     state: retailer,
                     setState: setRetailer,
+                },
+                affiliateSelected: {
+                    state: affiliateSelected,
+                    setState: setAffiliateSelected,
                 },
             }}
         >
