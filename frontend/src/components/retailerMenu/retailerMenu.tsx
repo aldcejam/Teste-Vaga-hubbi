@@ -73,7 +73,9 @@ export const RetailerMenu = () => {
                 style={{ pointerEvents: isOpen ? "auto" : "none" }}
             >
 
-                {retailers.map((item) => (
+                {
+                retailers ?
+                retailers.map((item) => (
                     <motion.li 
                         variants={itemVariants} 
                         key={item.id}  
@@ -82,7 +84,10 @@ export const RetailerMenu = () => {
                         >
                         {item.name}
                     </motion.li>
-                ))} 
+                )): <><p>
+                    Não foi possível carregar os varejistas
+                    </p></>
+                } 
             </motion.ul>
         </motion.nav>
     )
